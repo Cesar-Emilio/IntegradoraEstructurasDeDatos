@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    margin: 0;
+    background-image: url("../images/background_inicio.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.battle-container {
+    width: 90%;
+    height: 80vh;
+    background-color: rgba(0,0,0,0.7);
+    border: 4px solid #7f7f7f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-shadow: -2px -2px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000;
+}
+
+.battle-header {
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.battle-arena {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.player-cards, .enemy-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card {
+    width: 70px;
+    height: 120px;
+    background-color: #4a4a4a;
+    border: 4px solid #7f7f7f;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    box-shadow: -2px -2px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000;
+}
+
+.versus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-size: 48px;
+    text-shadow: 2px 2px 0 #000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1  ;
+}
+
+.versus.show {
+    opacity: 1;
+}
+
+.card.move-to-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1s ease;
+}
