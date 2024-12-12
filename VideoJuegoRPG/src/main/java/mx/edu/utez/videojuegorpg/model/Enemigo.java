@@ -1,6 +1,7 @@
 package mx.edu.utez.videojuegorpg.model;
 
 import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
+import mx.edu.utez.videojuegorpg.dataStructures.CircularLinkedList;
 import mx.edu.utez.videojuegorpg.enums.RolEnemigo;
 import mx.edu.utez.videojuegorpg.enums.TipoEnemigo;
 
@@ -13,7 +14,7 @@ public class Enemigo extends Personaje {
     }
 
     // Constructor con habilidades, ahora con imagen
-    public Enemigo(String nombre, RolEnemigo rol, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades, String imagen) {
+    public Enemigo(String nombre, RolEnemigo rol, int defensa, int velocidad, int salud, CircularLinkedList<Habilidad> habilidades, String imagen) {
         super(nombre, defensa, velocidad, salud, habilidades, imagen);
         this.rol = rol;
     }

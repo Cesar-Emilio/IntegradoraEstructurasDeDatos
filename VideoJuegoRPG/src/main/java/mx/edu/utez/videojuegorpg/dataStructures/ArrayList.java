@@ -30,12 +30,7 @@ public class ArrayList<T> {
         this.capacity *= 2;
         T[] newArray = (T[]) new Object[this.capacity];
         // Copiar el array viejo en el nuevo
-        System.arraycopy(
-            this.array,
-             0, 
-             newArray, 
-             0, 
-             size);
+        System.arraycopy(this.array, 0, newArray, 0, size);
         this.array = newArray;
     }
 
@@ -48,12 +43,29 @@ public class ArrayList<T> {
         return true;
     }
 
+    // Método para añadir un elemento en una posición específica
+    public void add(int index, T elemento) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Índice fuera de los límites");
+        }
+
+        if (this.size == this.capacity) {
+            resize();
+        }
+
+        // Mover los elementos a la derecha para hacer espacio
+        for (int i = size; i > index; i--) {
+            array[i] = array[i - 1];
+        }
+
+        array[index] = elemento;
+        size++;
+    }
+
     // Método para obtener un elemento por índice
     public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                "El índice está fuera de los límites del array"
-            );
+            throw new IndexOutOfBoundsException("El índice está fuera de los límites del array");
         }
         return this.array[index];
     }
@@ -61,9 +73,7 @@ public class ArrayList<T> {
     // Método para remover un elemento por índice
     public boolean remove(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                "El índice está fuera de los límites del array"
-            );
+            throw new IndexOutOfBoundsException("El índice está fuera de los límites del array");
         }
 
         // Mover los elementos después del índice hacia la izquierda
