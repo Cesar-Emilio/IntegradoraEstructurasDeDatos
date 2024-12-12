@@ -33,7 +33,6 @@ public class InicioServlet extends HttpServlet {
 
         // Validar si el nodo "personajes" existe y es un arreglo
         JsonNode personajesNode = rootNode.get("personajes");
-        System.out.println(personajesNode.toString());
         if (personajesNode == null || !personajesNode.isArray()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json");
@@ -45,12 +44,20 @@ public class InicioServlet extends HttpServlet {
         personajesNode.forEach(node -> {
             String name = node.get("name").asText("");
             String role = node.get("role").asText("");
-            int attack = node.get("attack").asInt(0);
-            int speed = node.get("speed").asInt(0);
-            int defense = node.get("defense").asInt(0);
+            int salud = node.get("salud").asInt(0);
+            int speed = node.get("velocidad").asInt(0);
+            int defense = node.get("defensa").asInt(0);
+            String image = node.get("image").asText("");
 
-            personajes.add(new Personaje(name, convertirStringARol(role), attack, speed, defense));
+            personajes.add(new Personaje(name, convertirStringARol(role), defense, speed, salud, image));
         });
+
+        for (int i = 0; i < personajes.size(); i++) {
+            System.out.println(personajes.get(i).toString());
+
+        }
+
+        request.getSession().setAttribute("selectedPlayers", personajes);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

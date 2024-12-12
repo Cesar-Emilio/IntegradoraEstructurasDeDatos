@@ -7,13 +7,14 @@ import mx.edu.utez.videojuegorpg.enums.TipoEnemigo;
 public class Enemigo extends Personaje {
     private RolEnemigo rol;
 
-    public Enemigo(String nombre, RolEnemigo rol, int defensa, int velocidad, int salud) {
-        super(nombre, defensa, velocidad, salud);
+    public Enemigo(String nombre, RolEnemigo rol, int defensa, int velocidad, int salud, String imagen) {
+        super(nombre, defensa, velocidad, salud, imagen);
         this.rol = rol;
     }
 
-    public Enemigo(String nombre, RolEnemigo rol, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades) {
-        super(nombre, defensa, velocidad, salud, habilidades);
+    // Constructor con habilidades, ahora con imagen
+    public Enemigo(String nombre, RolEnemigo rol, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades, String imagen) {
+        super(nombre, defensa, velocidad, salud, habilidades, imagen);
         this.rol = rol;
     }
 
