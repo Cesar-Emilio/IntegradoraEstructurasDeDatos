@@ -162,12 +162,34 @@ document.addEventListener('DOMContentLoaded', () => {
     startGameBtn.addEventListener('click', () => {
         if (!startGameBtn.disabled) {
             const selectedCharactersArray = Array.from(document.querySelectorAll('.character-slot.selected'))
-                .map(slot => ({
-                    name: slot.querySelector('p')?.textContent || '',
-                    role: slot.querySelector('.role')?.textContent || ''
-                }));
+                .map(slot => {
+                    const characterId = parseInt(selectedCharacters[slot.dataset.slot]); // Obtener el ID correcto del personaje seleccionado
+                    const character = characters.find(c => c.id === characterId); // Encontrar el personaje por su ID
 
-            fetch('SeleccionPersonajesServlet', {
+                    // Validar que el personaje exista
+                    if (character) {
+                        return {
+                            name: character.name,
+                            role: slot.querySelector('.role')?.textContent || '', // Obtener el rol desde el slot
+                            attack: character.attack,
+                            speed: character.speed,
+                            defense: character.defense
+                        };
+                    }
+
+                    // En caso de que no se encuentre el personaje, devolver un objeto vacío o valores por defecto (opcional)
+                    return {
+                        name: '',
+                        role: '',
+                        attack: 0,
+                        speed: 0,
+                        defense: 0
+                    };
+                });
+
+            console.log(selectedCharactersArray)
+
+            fetch('InicioServlet', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

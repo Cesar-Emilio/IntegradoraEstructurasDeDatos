@@ -21,25 +21,54 @@ public class InicioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
-
         JsonNode rootNode;
         try {
             rootNode = mapper.readTree(request.getReader());
         } catch (IOException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("application/json");
             response.getWriter().write("{\"error\":\"El formato del JSON es inválido\"}");
             return;
         }
 
-        ArrayList<String> usuarios = new ArrayList<>();
+        // Validar si el nodo "personajes" existe y es un arreglo
         JsonNode personajesNode = rootNode.get("personajes");
-
-        if (personajesNode != null && personajesNode.isArray()) {
-            personajesNode.forEach(node -> usuarios.add(node.asText()));
+        System.out.println(personajesNode.toString());
+        if (personajesNode == null || !personajesNode.isArray()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":\"Faltan los personajes o no están en el formato correcto\"}");
+            return;
         }
 
-        request.setAttribute("usuarios", usuarios);
+        ArrayList<Personaje> personajes = new ArrayList<>();
+        personajesNode.forEach(node -> {
+            String name = node.get("name").asText("");
+            String role = node.get("role").asText("");
+            int attack = node.get("attack").asInt(0);
+            int speed = node.get("speed").asInt(0);
+            int defense = node.get("defense").asInt(0);
 
-        request.getRequestDispatcher("inicio.jsp").forward(request, response);
+            personajes.add(new Personaje(name, convertirStringARol(role), attack, speed, defense));
+        });
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // Devolver una respuesta con los personajes procesados
+        response.getWriter().write(mapper.writeValueAsString(personajes));
+    }
+
+    public Rol convertirStringARol(String rolString) {
+        switch (rolString.toUpperCase()) { // Convertir a mayúsculas para evitar problemas con el caso
+            case "GUERRERO":
+                return Rol.GUERRERO;
+            case "MAGO":
+                return Rol.MAGO;
+            case "ARQUERO":
+                return Rol.ARQUERO;
+            default:
+                throw new IllegalArgumentException("Rol desconocido: " + rolString);
+        }
     }
 }
