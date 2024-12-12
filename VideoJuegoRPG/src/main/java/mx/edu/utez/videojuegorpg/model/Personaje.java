@@ -1,5 +1,7 @@
 package mx.edu.utez.videojuegorpg.model;
 
+import mx.edu.utez.videojuegorpg.enums.Rol;
+
 import java.util.Random;
 
 public class Personaje {

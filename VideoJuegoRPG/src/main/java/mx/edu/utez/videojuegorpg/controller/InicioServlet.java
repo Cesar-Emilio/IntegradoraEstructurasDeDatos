@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mx.edu.utez.videojuegorpg.enums.Rol;
 import mx.edu.utez.videojuegorpg.model.*;
 
 import java.io.IOException;

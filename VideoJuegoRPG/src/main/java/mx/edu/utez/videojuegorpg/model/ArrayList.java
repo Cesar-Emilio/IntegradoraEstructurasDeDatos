@@ -14,6 +14,16 @@ public class ArrayList<T> {
         this.size = 0;
     }
 
+    // Método estático para crear una lista desde elementos
+    @SafeVarargs
+    public static <T> ArrayList<T> of(T... elements) {
+        ArrayList<T> list = new ArrayList<>();
+        for (T element : elements) {
+            list.add(element);
+        }
+        return list;
+    }
+
     // Redimensionar el array si es necesario
     @SuppressWarnings("unchecked")
     private void resize() {
