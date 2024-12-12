@@ -1,4 +1,4 @@
-//Pila (Clase) que usa lista enlazada simple
+package mx.edu.utez.videojuegorpg.dataStructures;//Pila (Clase) que usa lista enlazada simple
 import java.util.EmptyStackException;
 import java.util.Iterator;
 
@@ -80,29 +80,4 @@ public class Stack<E> implements Iterable<E> {
             }
         };
     }
-
-    public static void main(String[] args) {
-        
-        //Quiero una pila de enteros
-        Stack<Integer> pila = new Stack<>();
-        //ponerle 1,2,3
-        pila.push(1);
-        pila.push(2);
-        pila.push(3);
-
-        //ver el superior
-        System.out.println("Elemento hasta arriba: " + pila.peek());
-        //eliminar y ver el superior
-        System.out.println("Elemento eliminado: " + pila.pop());
-        //ver el superior
-        System.out.println("Elemento hasta arriba: " + pila.peek());
-
-    }
-
-
-
-
-
-
-
 }
