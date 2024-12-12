@@ -324,7 +324,7 @@ h1, .character-slot p {
     left: 0;
 }
 
-.bar.attack { background-color: #c31212; }
+.bar.health { background-color: #73c312; }
 .bar.speed { background-color: #d18d11; }
 .bar.defense { background-color: #186bbd; }
 

@@ -30,12 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
     modalContent.insertBefore(roleSelectWrapper, characterCarousel);
 
     let characters = [
-        { id: 1, name: 'Erick', image: 'images/characters/Erick.png', ataque: 80, velocidad: 60, defensa: 70 },
-        { id: 2, name: 'Big', image: 'images/characters/Big.png', ataque: 50, velocidad: 80, defensa: 90 },
-        { id: 3, name: 'Cesar', image: 'images/characters/Cesar.png', ataque: 70, velocidad: 70, defensa: 80 },
-        { id: 4, name: 'Andres', image: 'images/characters/Andres.png', ataque: 100, velocidad: 50, defensa: 60 },
-        { id: 5, name: 'Sebas', image: 'images/characters/Sebas.png', ataque: 60, velocidad: 90, defensa: 50 },
-        { id: 6, name: 'Choforo', image: 'images/characters/Chris.png', ataque: 65, velocidad: 75, defensa: 85 },
+        { id: 1, name: 'Erick', image: 'images/characters/Erick.png', salud: 80, velocidad: 60, defensa: 70 },
+        { id: 2, name: 'Big', image: 'images/characters/Big.png', salud: 50, velocidad: 80, defensa: 90 },
+        { id: 3, name: 'Cesar', image: 'images/characters/Cesar.png', salud: 70, velocidad: 70, defensa: 80 },
+        { id: 4, name: 'Andres', image: 'images/characters/Andres.png', salud: 100, velocidad: 50, defensa: 60 },
+        { id: 5, name: 'Sebas', image: 'images/characters/Sebas.png', salud: 60, velocidad: 90, defensa: 50 },
+        { id: 6, name: 'Choforo', image: 'images/characters/Chris.png', salud: 65, velocidad: 75, defensa: 85 },
     ];
 
     let currentCharacterIndex = 0;
@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>${character.name}</h3>
                 <div class="stats">
                     <div class="stat-group">
-                        <div class="stat-label">Ataque</div>
+                        <div class="stat-label">Salud</div>
                         <div class="stat-bar-container">
-                            <span style="width: ${character.ataque}%" class="bar attack"></span>
+                            <span style="width: ${character.salud}%" class="bar health"></span>
                         </div>
-                        <div class="stat-value">${character.ataque}</div>
+                        <div class="stat-value">${character.salud}</div>
                     </div>
                     <div class="stat-group">
                         <div class="stat-label">Velocidad</div>
