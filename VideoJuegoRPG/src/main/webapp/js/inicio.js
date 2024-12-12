@@ -171,22 +171,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         return {
                             name: character.name,
                             role: slot.querySelector('.role')?.textContent || '', // Obtener el rol desde el slot
-                            attack: character.attack,
-                            speed: character.speed,
-                            defense: character.defense
+                            salud: character.salud,
+                            velocidad: character.velocidad,
+                            defensa: character.defensa,
+                            image: character.image
                         };
                     }
 
                     return {
                         name: '',
                         role: '',
-                        attack: 0,
-                        speed: 0,
-                        defense: 0
+                        salud: 0,
+                        velocidad: 0,
+                        defensa: 0,
+                        image: ''
                     };
                 });
-
-            console.log(selectedCharactersArray)
 
             fetch('InicioServlet', {
                 method: 'POST',

@@ -12,32 +12,36 @@ public class Personaje {
     int velocidad;
     int salud;
     ArrayList<Habilidad> habilidades;
+    String imagen;
 
     public Personaje() {
     }
 
-    public Personaje(String nombre, Rol rol, int defensa, int velocidad, int salud) {
+    public Personaje(String nombre, Rol rol, int defensa, int velocidad, int salud, String imagen) {
         this.nombre = nombre;
         this.rol = rol;
         this.defensa = defensa;
         this.velocidad = velocidad;
         this.salud = salud;
         this.habilidades = rol.getHabilidades(rol);
+        this.imagen = imagen;
     }
 
-    public Personaje(String nombre, int defensa, int velocidad, int salud) {
+    public Personaje(String nombre, int defensa, int velocidad, int salud, String imagen) {
         this.nombre = nombre;
         this.defensa = defensa;
         this.velocidad = velocidad;
         this.salud = salud;
+        this.imagen = imagen;
     }
 
-    public Personaje(String nombre, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades) {
+    public Personaje(String nombre, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades, String imagen) {
         this.nombre = nombre;
         this.defensa = defensa;
         this.velocidad = velocidad;
         this.salud = salud;
         this.habilidades = habilidades;
+        this.imagen = imagen;
     }
 
     public String getNombre() {
@@ -103,5 +107,26 @@ public class Personaje {
             }
         }
         return null;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    @Override
+    public String toString() {
+        return "Personaje{" +
+                "nombre='" + nombre + '\'' +
+                ", rol=" + rol +
+                ", defensa=" + defensa +
+                ", velocidad=" + velocidad +
+                ", salud=" + salud +
+                ", habilidades=" + habilidades +
+                ", imagen='" + imagen + '\'' +
+                '}';
     }
 }

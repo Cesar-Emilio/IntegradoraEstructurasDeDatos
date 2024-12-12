@@ -1,6 +1,5 @@
 package mx.edu.utez.videojuegorpg.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,49 +8,57 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
 import mx.edu.utez.videojuegorpg.model.Enemigo;
+import mx.edu.utez.videojuegorpg.model.EnemigosConfig;
 import mx.edu.utez.videojuegorpg.model.Personaje;
 
 import java.io.IOException;
+import java.util.*;
 
 @WebServlet("/IniciarBatallaServlet")
 public class IniciarBatallaServlet extends HttpServlet {
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Obtener los aliados guardados en sesión
+        ArrayList<Personaje> selectedPlayers = (ArrayList<Personaje>) request.getSession().getAttribute("selectedPlayers");
+
+        // Obtener nivel aleatorio (1 a 10)
+        int nivelAleatorio = new Random().nextInt(10) + 1;
+
+        // Obtener enemigos para ese nivel
+        ArrayList<Enemigo> enemigos = EnemigosConfig.obtenerEnemigos(nivelAleatorio);
+
+        // Preparar JSON de respuesta
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Personaje> personajesAliados = new ArrayList<>();
-        ArrayList<Enemigo> personajesEnemigos = new ArrayList<>();
-        int nivelSeleccionado;
+        Map<String, Object> responseData = new HashMap<>();
 
-        try {
-            JsonNode rootNode = mapper.readTree(request.getReader());
-
-            JsonNode nivelNode = rootNode.get("nivelActual");
-            if (nivelNode == null || !nivelNode.isInt()) {
-                throw new IllegalArgumentException("El nivel seleccionado es inválido o está ausente");
+        // Construir playerCards
+        ArrayList<Map<String, Object>> playerCards = new ArrayList<>();
+        if (selectedPlayers != null) {
+            for (int i = 0; i < selectedPlayers.size(); i++) {
+                Map<String, Object> cardData = new HashMap<>();
+                cardData.put("imageSrc", selectedPlayers.get(i).getImagen());
+                cardData.put("hp", selectedPlayers.get(i).getSalud());
+                cardData.put("attack", selectedPlayers.get(i).getDefensa());
+                playerCards.add(cardData);
             }
-            nivelSeleccionado = nivelNode.asInt();
-
-            JsonNode personajesNode = rootNode.get("personajes");
-            if (personajesNode != null && personajesNode.isArray()) {
-                personajesNode.forEach(node -> {
-                    Personaje personaje = mapper.convertValue(node, Personaje.class);
-                    personajesAliados.add(personaje);
-                });
-            }
-
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\":\"Datos enviados son inválidos\"}");
-            return;
         }
 
-        // TODO: Inicializar enemigos para el nivel seleccionado
-        // personajesEnemigos = inicializarEnemigos(nivelSeleccionado);
+        // Construir enemyCards
+        ArrayList<Map<String, Object>> enemyCards = new ArrayList<>();
+        for (int i = 0; i < enemigos.size(); i++) {
+            Map<String, Object> cardData = new HashMap<>();
+            cardData.put("imageSrc", enemigos.get(i).getImagen());
+            cardData.put("hp", enemigos.get(i).getSalud());
+            cardData.put("attack", enemigos.get(i).getDefensa());
+            enemyCards.add(cardData);
+        }
+        
+        responseData.put("playerCards", playerCards);
+        responseData.put("enemyCards", enemyCards);
 
-        request.setAttribute("personajes", personajesAliados);
-        request.setAttribute("enemigos", personajesEnemigos);
-
-        request.getRequestDispatcher("batalla.jsp").forward(request, response);
+        // Devolver JSON
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(mapper.writeValueAsString(responseData));
     }
 }
