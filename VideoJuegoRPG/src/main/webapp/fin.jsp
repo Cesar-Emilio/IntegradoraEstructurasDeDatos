@@ -14,7 +14,6 @@
     <h1>
         <%= ganador ? "¡Ganaste!" : "Perdiste" %>
     </h1>
-
     <button id="inicio-btn" onclick="window.location.href='inicio.jsp'">
         Volver al Inicio
     </button>
