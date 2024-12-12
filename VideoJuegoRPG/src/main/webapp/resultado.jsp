@@ -1,16 +1,31 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: cesar
-  Date: 07/12/2024
-  Time: 08:43 p. m.
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Resultado del Juego</title>
+    <link rel="stylesheet" type="text/css" href="css/fin.css">
 </head>
 <body>
+<div class="container">
+    <h1 class="resultado">
+        <% if (request.getAttribute("mensaje") != null) { %>
+        ${mensaje}
+        <% } else { %>
+        No se pudo obtener el resultado.
+        <% } %>
+    </h1>
 
+    <div class="niveles">
+        <% if (request.getAttribute("nivelMaximo") != null && request.getAttribute("nivelActual") != null) { %>
+        <p id="colorXD">Nivel Récord: <strong>${nivelMaximo}</strong></p>
+        <p id="colorXD">Nivel Actual: <strong>${nivelActual}</strong></p>
+        <% } %>
+    </div>
+
+    <button id="inicio-btn" onclick="window.location.href='inicio.jsp'">
+        Volver al Inicio
+    </button>
+</div>
 </body>
 </html>

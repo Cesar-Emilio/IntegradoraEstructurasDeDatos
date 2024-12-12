@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    // Obtener el número de nivel desde la solicitud
+    String nivel = request.getParameter("nivel");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +13,8 @@
 </head>
 <body>
 <div class="battle-container">
-    <h1 class="battle-header">Battle Arena</h1>
+    <!-- Mostrar el nivel en la parte superior de la batalla -->
+    <h2 class="battle-level">Nivel: <%= nivel %></h2>
 
     <div class="battle-arena">
         <div class="player-cards">

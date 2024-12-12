@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startGameBtn.addEventListener('click', () => {
         if (!startGameBtn.disabled) {
-            const selectedCharactersArray = Array.from(document.querySelectorAll('.character-slot.selected'))
+            /*const selectedCharactersArray = Array.from(document.querySelectorAll('.character-slot.selected'))
                 .map(slot => {
                     const characterId = parseInt(selectedCharacters[slot.dataset.slot]); // Obtener el ID correcto del personaje seleccionado
                     const character = characters.find(c => c.id === characterId); // Encontrar el personaje por su ID
@@ -177,7 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         };
                     }
 
-                    // En caso de que no se encuentre el personaje, devolver un objeto vacío o valores por defecto (opcional)
                     return {
                         name: '',
                         role: '',
@@ -202,6 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = 'batalla.jsp';
                 })
                 .catch(error => console.error('Error:', error));
+                */
+            window.location.href = 'batalla.jsp?nivel=1';
         }
     });
 });

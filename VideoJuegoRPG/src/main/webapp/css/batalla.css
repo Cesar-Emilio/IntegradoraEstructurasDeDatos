@@ -13,6 +13,8 @@ body {
     overflow: hidden;
 }
 
+
+
 .battle-container {
     width: 90%;
     height: 80vh;
@@ -30,6 +32,10 @@ body {
     text-transform: uppercase;
     margin-bottom: 20px;
     text-shadow: 2px 2px 0 #000;
+}
+
+.battle-level {
+    color: white;
 }
 
 .battle-arena {

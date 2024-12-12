@@ -11,9 +11,7 @@ import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
 import mx.edu.utez.videojuegorpg.enums.Rol;
 import mx.edu.utez.videojuegorpg.model.*;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/InicioServlet")
 public class InicioServlet extends HttpServlet {
@@ -71,4 +69,6 @@ public class InicioServlet extends HttpServlet {
                 throw new IllegalArgumentException("Rol desconocido: " + rolString);
         }
     }
+
+
 }
