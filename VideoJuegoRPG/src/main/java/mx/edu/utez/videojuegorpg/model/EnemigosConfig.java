@@ -1,5 +1,6 @@
 package mx.edu.utez.videojuegorpg.model;
 
+import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
 import mx.edu.utez.videojuegorpg.enums.Rol;
 import mx.edu.utez.videojuegorpg.enums.RolEnemigo;
 
@@ -12,16 +13,28 @@ public class EnemigosConfig {
 
     static {
 
-        ArrayList<Habilidad> habilidadesAvanzadasEsqueleto = ArrayList.of(
+        ArrayList<Habilidad> habilidadesBasicasEsqueleto = ArrayList.of(
+                RolEnemigo.GUERRERO_NORMAL.getHabilidades()
         );
 
-        ArrayList<Habilidad> habilidadesAvanzadasMagoOscuro = ArrayList.of(
+        ArrayList<Habilidad> habilidadesAvanzadasEsqueleto = ArrayList.of(
+                RolEnemigo.GUERRERO_ELITE.getHabilidades()
         );
 
         ArrayList<Habilidad> habilidadesJefeEqueleto = ArrayList.of(
+                RolEnemigo.GUERRERO_JEFE.getHabilidades()
+        );
+
+        ArrayList<Habilidad> habilidadesBasicasMagoOscuro = ArrayList.of(
+                RolEnemigo.MAGO_NORMAL.getHabilidades()
+        );
+
+        ArrayList<Habilidad> habilidadesAvanzadasMagoOscuro = ArrayList.of(
+                RolEnemigo.MAGO_ELITE.getHabilidades()
         );
 
         ArrayList<Habilidad> habilidadesJefeMagoOscuro = ArrayList.of(
+                RolEnemigo.MAGO_JEFE.getHabilidades()
         );
 
         ENEMIGOS_POR_NIVEL.put(1, ArrayList.of(

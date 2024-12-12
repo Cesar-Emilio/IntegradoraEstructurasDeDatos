@@ -27,6 +27,21 @@ public class Personaje {
 
     }
 
+    public Personaje(String nombre, int defensa, int velocidad, int salud) {
+        this.nombre = nombre;
+        this.defensa = defensa;
+        this.velocidad = velocidad;
+        this.salud = salud;
+    }
+
+    public Personaje(String nombre, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades) {
+        this.nombre = nombre;
+        this.defensa = defensa;
+        this.velocidad = velocidad;
+        this.salud = salud;
+        this.habilidades = habilidades;
+    }
+
     public String getNombre() {
         return nombre;
     }
