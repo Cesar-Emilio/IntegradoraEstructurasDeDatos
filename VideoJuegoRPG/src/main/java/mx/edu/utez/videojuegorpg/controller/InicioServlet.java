@@ -14,6 +14,7 @@ public class InicioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Equipo<Personaje> miEquipo = new Equipo<>();
 
+        //Personajes de prueba
         Personaje personaje1 = new Personaje("Aragorn", Rol.GUERRERO, 80, 10, 100);
         Personaje personaje2 = new Personaje("Gandalf", Rol.MAGO, 60, 5, 80);
 
