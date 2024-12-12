@@ -1,0 +1,66 @@
+/* Importar la fuente */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Estilado base para el contenedor */
+body {
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url("../images/background_asset.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 4px solid #7f7f7f;
+    box-shadow: -2px -2px 0 #000, 2px 2px 0 #000;
+}
+
+/* Título de selección */
+h1 {
+    color: #ffffff;
+    text-shadow: 3px 3px 0 #000;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Lista de niveles estilo retro */
+.lista-niveles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+/* Botones de nivel con estilo retro */
+.boton-nivel {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #4CAF50;
+    color: white;
+    border: 3px solid #7f7f7f;
+    padding: 12px 40px;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 5px;
+    width: 250px; /* Botones más anchos */
+    box-shadow: -2px -2px 0 #000, 2px 2px 0 #000;
+    image-rendering: pixelated;
+}
+
+/* Hover en los botones */
+.boton-nivel:hover {
+    background-color: #45a049;
+    box-shadow: -3px -3px 0 #1B5E20, 3px 3px 0 #1B5E20, -3px 3px 0 #1B5E20, 3px -3px 0 #1B5E20;
+}
