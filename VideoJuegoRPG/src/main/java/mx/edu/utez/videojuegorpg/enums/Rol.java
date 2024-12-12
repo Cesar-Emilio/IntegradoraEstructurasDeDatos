@@ -1,6 +1,6 @@
 package mx.edu.utez.videojuegorpg.enums;
 
-import mx.edu.utez.videojuegorpg.model.ArrayList;
+import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
 import mx.edu.utez.videojuegorpg.model.Habilidad;
 
 public enum Rol {

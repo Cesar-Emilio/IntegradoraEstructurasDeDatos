@@ -1,5 +1,6 @@
 package mx.edu.utez.videojuegorpg.model;
 
+import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
 import mx.edu.utez.videojuegorpg.enums.Rol;
 
 import java.util.Random;

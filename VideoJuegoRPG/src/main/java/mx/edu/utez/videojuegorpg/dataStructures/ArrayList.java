@@ -1,4 +1,4 @@
-package mx.edu.utez.videojuegorpg.model;
+package mx.edu.utez.videojuegorpg.dataStructures;
 
 public class ArrayList<T> {
     // Atributos que definen al ArrayList
