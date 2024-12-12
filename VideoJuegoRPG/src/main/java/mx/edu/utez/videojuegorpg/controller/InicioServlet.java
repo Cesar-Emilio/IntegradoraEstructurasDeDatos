@@ -14,18 +14,8 @@ public class InicioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Equipo<Personaje> miEquipo = new Equipo<>();
 
-        Rol guerreroRol = new Rol("Guerrero", new ArrayList<Habilidad>() {{
-            add(new Habilidad("Ataque Básico", 10));
-            add(new Habilidad("Habilidad Especial", 20));
-        }});
-
-        Rol magoRol = new Rol("Mago", new ArrayList<Habilidad>() {{
-            add(new Habilidad("Bola de Fuego", 15));
-            add(new Habilidad("Escudo Mágico", 10));
-        }});
-
-        Personaje personaje1 = new Personaje("Aragorn", guerreroRol, 80, 10, 100);
-        Personaje personaje2 = new Personaje("Gandalf", magoRol, 60, 5, 80);
+        Personaje personaje1 = new Personaje("Aragorn", Rol.GUERRERO, 80, 10, 100);
+        Personaje personaje2 = new Personaje("Gandalf", Rol.MAGO, 60, 5, 80);
 
         miEquipo.agregar(personaje1);
         miEquipo.agregar(personaje2);
