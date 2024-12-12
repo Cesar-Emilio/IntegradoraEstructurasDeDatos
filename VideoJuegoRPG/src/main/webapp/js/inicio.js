@@ -30,12 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
     modalContent.insertBefore(roleSelectWrapper, characterCarousel);
 
     let characters = [
-        { id: 1, name: 'Erick', image: 'images/characters/Erick.png', attack: 80, speed: 60, defense: 70 },
-        { id: 2, name: 'Big', image: 'images/characters/Big.png', attack: 50, speed: 80, defense: 90 },
-        { id: 3, name: 'Cesar', image: 'images/characters/Cesar.png', attack: 70, speed: 70, defense: 80 },
-        { id: 4, name: 'Andres', image: 'images/characters/Andres.png', attack: 100, speed: 50, defense: 60 },
-        { id: 5, name: 'Sebas', image: 'images/characters/Sebas.png', attack: 60, speed: 90, defense: 50 },
-        { id: 6, name: 'Choforo', image: 'images/characters/Chris.png', attack: 65, speed: 75, defense: 85 },
+        { id: 1, name: 'Erick', image: 'images/characters/Erick.png', ataque: 80, velocidad: 60, defensa: 70 },
+        { id: 2, name: 'Big', image: 'images/characters/Big.png', ataque: 50, velocidad: 80, defensa: 90 },
+        { id: 3, name: 'Cesar', image: 'images/characters/Cesar.png', ataque: 70, velocidad: 70, defensa: 80 },
+        { id: 4, name: 'Andres', image: 'images/characters/Andres.png', ataque: 100, velocidad: 50, defensa: 60 },
+        { id: 5, name: 'Sebas', image: 'images/characters/Sebas.png', ataque: 60, velocidad: 90, defensa: 50 },
+        { id: 6, name: 'Choforo', image: 'images/characters/Chris.png', ataque: 65, velocidad: 75, defensa: 85 },
     ];
 
     let currentCharacterIndex = 0;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     characterSlots.forEach((slot, index) => {
         slot.dataset.slot = index;
-        slot.innerHTML = `<div class="add-character-icon">+</div>`;
+        slot.innerHTML = '<div class="add-character-icon">+</div>';
         slot.addEventListener('click', () => {
             if (!slot.classList.contains('selected')) {
                 selectedSlot = slot;
@@ -60,35 +60,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCharacterCarousel() {
         const character = characters[currentCharacterIndex];
-        characterCarousel.innerHTML = `
-            <div class="character-card">
+        characterCarousel.innerHTML =
+            `<div class="character-card">
                 <img src="${character.image}" alt="${character.name}">
                 <h3>${character.name}</h3>
                 <div class="stats">
                     <div class="stat-group">
                         <div class="stat-label">Ataque</div>
                         <div class="stat-bar-container">
-                            <span style="width: ${character.attack}%" class="bar attack"></span>
+                            <span style="width: ${character.ataque}%" class="bar attack"></span>
                         </div>
-                        <div class="stat-value">${character.attack}</div>
+                        <div class="stat-value">${character.ataque}</div>
                     </div>
                     <div class="stat-group">
                         <div class="stat-label">Velocidad</div>
                         <div class="stat-bar-container">
-                            <span style="width: ${character.speed}%" class="bar speed"></span>
+                            <span style="width: ${character.velocidad}%" class="bar speed"></span>
                         </div>
-                        <div class="stat-value">${character.speed}</div>
+                        <div class="stat-value">${character.velocidad}</div>
                     </div>
                     <div class="stat-group">
                         <div class="stat-label">Defensa</div>
                         <div class="stat-bar-container">
-                            <span style="width: ${character.defense}%" class="bar defense"></span>
+                            <span style="width: ${character.defensa}%" class="bar defense  "></span>
                         </div>
-                        <div class="stat-value">${character.defense}</div>
+                        <div class="stat-value">${character.defensa}</div>
                     </div>
                 </div>
-            </div>
-        `;
+            </div>`;
     }
 
     selectCharacterBtn.addEventListener('click', () => {
