@@ -86,10 +86,32 @@ document.addEventListener('DOMContentLoaded', () => {
     carouselControls.appendChild(nextBtn);
     document.querySelector('.modal-content').insertBefore(carouselControls, selectCharacterBtn);
 
-    startGameBtn.addEventListener('click', () => {
+    startGameBtn.addEventListener('click', () => {startGameBtn.addEventListener('click', () => {
         if (!startGameBtn.disabled) {
-            // JUEGOTE
-            alert('¡Juego iniciado!');
+            const selectedCharacters = Array.from(document.querySelectorAll('.character-slot.selected'))
+                .map(slot => slot.querySelector('p')?.textContent || ''); // Obtén el texto o un valor vacío si no existe
+
+            console.log('Personajes seleccionados para enviar:', selectedCharacters); // LOG
+            if (selectedCharacters.length === 0 || selectedCharacters.includes('')) {
+                console.error('Error: No se seleccionaron personajes correctamente.');
+                return;
+            }
+
+            // Enviar datos al servidor
+            fetch('SeleccionPersonajesServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({personajes: selectedCharacters})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                    window.location.href = 'batalla.jsp'; // Redirigir a la batalla
+                })
+                .catch(error => console.error('Error:', error));
         }
+    });
     });
 });
