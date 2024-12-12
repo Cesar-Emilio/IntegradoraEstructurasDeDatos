@@ -7,25 +7,25 @@ public enum Rol {
     GUERRERO(
         new Habilidad[] {
             new Habilidad("Golpe Poderoso", 30),
-            new Habilidad("Defensa de Acero", 0),
-            new Habilidad("Furia de Batalla", 40),
-            new Habilidad("Ráfaga de Espadas", 50, false)
+            new Habilidad("Golpe Critico", 50),
+            new Habilidad("Furia de Batalla", 70),
+            new Habilidad("Ráfaga de Espadas", 100, false)
         }
     ),
     MAGO(
         new Habilidad[] {
-            new Habilidad("Bola de Fuego", 25),
-            new Habilidad("Escudo Arcano", 0),
-            new Habilidad("Tormenta Eléctrica", 35),
-            new Habilidad("Explosión Final", 60, false)
+            new Habilidad("Bola de Fuego", 20),
+            new Habilidad("Disparo de Agua", 50),
+            new Habilidad("Tormenta Eléctrica", 60),
+            new Habilidad("Explosión Final", 120, false)
         }
     ),
     ARQUERO(
         new Habilidad[] {
-            new Habilidad("Flecha Precisa", 20),
-            new Habilidad("Red de Trampa", 0),
-            new Habilidad("Disparo Triple", 30),
-            new Habilidad("Lluvia de Flechas", 45, false)
+            new Habilidad("Flecha Precisa", 40),
+            new Habilidad("Flecha de Fuego", 50),
+            new Habilidad("Disparo Triple", 80),
+            new Habilidad("Lluvia de Flechas", 90, false)
         }
     );
 

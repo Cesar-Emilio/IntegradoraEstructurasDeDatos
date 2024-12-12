@@ -90,4 +90,11 @@ public class Personaje {
     public void setHabilidades(ArrayList<Habilidad> habilidades) {
         this.habilidades = habilidades;
     }
+
+    public Personaje getPersonaje(String nombre) {
+        if (this.nombre.equals(nombre)) {
+            return this;
+        }
+        return null;
+    }
 }
