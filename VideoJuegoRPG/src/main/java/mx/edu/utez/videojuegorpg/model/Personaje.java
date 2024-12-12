@@ -52,6 +52,7 @@ public class Personaje {
         return velocidad;
     }
 
+
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
