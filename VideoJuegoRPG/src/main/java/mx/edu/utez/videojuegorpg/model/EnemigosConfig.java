@@ -1,6 +1,7 @@
 package mx.edu.utez.videojuegorpg.model;
 
 import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
+import mx.edu.utez.videojuegorpg.dataStructures.CircularLinkedList;
 import mx.edu.utez.videojuegorpg.enums.Rol;
 import mx.edu.utez.videojuegorpg.enums.RolEnemigo;
 
@@ -14,27 +15,27 @@ public class EnemigosConfig {
 
     static {
 
-        ArrayList<Habilidad> habilidadesBasicasEsqueleto = ArrayList.of(
+        CircularLinkedList<Habilidad> habilidadesBasicasEsqueleto = CircularLinkedList.of(
                 RolEnemigo.GUERRERO_NORMAL.getHabilidades()
         );
 
-        ArrayList<Habilidad> habilidadesAvanzadasEsqueleto = ArrayList.of(
+        CircularLinkedList<Habilidad> habilidadesAvanzadasEsqueleto = CircularLinkedList.of(
                 RolEnemigo.GUERRERO_ELITE.getHabilidades()
         );
 
-        ArrayList<Habilidad> habilidadesJefeEqueleto = ArrayList.of(
+        CircularLinkedList<Habilidad> habilidadesJefeEqueleto = CircularLinkedList.of(
                 RolEnemigo.GUERRERO_JEFE.getHabilidades()
         );
 
-        ArrayList<Habilidad> habilidadesBasicasMagoOscuro = ArrayList.of(
+        CircularLinkedList<Habilidad> habilidadesBasicasMagoOscuro = CircularLinkedList.of(
                 RolEnemigo.MAGO_NORMAL.getHabilidades()
         );
 
-        ArrayList<Habilidad> habilidadesAvanzadasMagoOscuro = ArrayList.of(
+        CircularLinkedList<Habilidad> habilidadesAvanzadasMagoOscuro = CircularLinkedList.of(
                 RolEnemigo.MAGO_ELITE.getHabilidades()
         );
 
-        ArrayList<Habilidad> habilidadesJefeMagoOscuro = ArrayList.of(
+        CircularLinkedList<Habilidad> habilidadesJefeMagoOscuro = CircularLinkedList.of(
                 RolEnemigo.MAGO_JEFE.getHabilidades()
         );
 

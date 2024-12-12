@@ -1,9 +1,9 @@
 package mx.edu.utez.videojuegorpg.model;
 
 import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
+import mx.edu.utez.videojuegorpg.dataStructures.CircularLinkedList;
+import mx.edu.utez.videojuegorpg.dataStructures.Node;
 import mx.edu.utez.videojuegorpg.enums.Rol;
-
-import java.util.Random;
 
 public class Personaje {
     String nombre;
@@ -11,11 +11,10 @@ public class Personaje {
     int defensa;
     int velocidad;
     int salud;
-    ArrayList<Habilidad> habilidades;
+    CircularLinkedList<Habilidad> habilidades;
     String imagen;
 
-    public Personaje() {
-    }
+    public Personaje() {}
 
     public Personaje(String nombre, Rol rol, int defensa, int velocidad, int salud, String imagen) {
         this.nombre = nombre;
@@ -35,13 +34,37 @@ public class Personaje {
         this.imagen = imagen;
     }
 
-    public Personaje(String nombre, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades, String imagen) {
+    public Personaje(String nombre, int defensa, int velocidad, int salud, CircularLinkedList<Habilidad> habilidades, String imagen) {
         this.nombre = nombre;
         this.defensa = defensa;
         this.velocidad = velocidad;
         this.salud = salud;
         this.habilidades = habilidades;
         this.imagen = imagen;
+    }
+
+    public Personaje(String nombre, int defensa, int velocidad, int salud, ArrayList<Habilidad> habilidades, String imagen) {
+    }
+
+    public Habilidad getHabilidad(String nombre) {
+        // Recorremos la lista circular de habilidades
+        Node<Habilidad> current = habilidades.getHead();
+        do {
+            if (current.data.getNombre().equals(nombre)) {
+                return current.data;  // Si encontramos la habilidad, la retornamos
+            }
+            current = current.next;
+        } while (current != habilidades.getHead());  // Continuamos hasta que volvamos al inicio de la lista
+
+        return null;  // Si no se encuentra la habilidad, retornamos null
+    }
+
+    public CircularLinkedList<Habilidad> getHabilidades() {
+        return rol.getHabilidades(rol);
+    }
+
+    public void setHabilidades(CircularLinkedList<Habilidad> habilidades) {
+        this.habilidades = habilidades;
     }
 
     public String getNombre() {
@@ -72,7 +95,6 @@ public class Personaje {
         return velocidad;
     }
 
-
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
@@ -85,30 +107,6 @@ public class Personaje {
         this.salud = salud;
     }
 
-    public ArrayList<Habilidad> getHabilidades() {
-        return rol.getHabilidades(rol);
-    }
-
-    public void setHabilidades(ArrayList<Habilidad> habilidades) {
-        this.habilidades = habilidades;
-    }
-
-    public Personaje getPersonaje(String nombre) {
-        if (this.nombre.equals(nombre)) {
-            return this;
-        }
-        return null;
-    }
-
-    public Habilidad getHabilidad(String nombre) {
-        for (int i = 0; i < rol.getHabilidades(rol).size(); i++) {
-            if (rol.getHabilidades(rol).get(i).getNombre().equals(nombre)) {
-                return rol.getHabilidades(rol).get(i);
-            }
-        }
-        return null;
-    }
-
     public String getImagen() {
         return imagen;
     }
@@ -117,16 +115,5 @@ public class Personaje {
         this.imagen = imagen;
     }
 
-    @Override
-    public String toString() {
-        return "Personaje{" +
-                "nombre='" + nombre + '\'' +
-                ", rol=" + rol +
-                ", defensa=" + defensa +
-                ", velocidad=" + velocidad +
-                ", salud=" + salud +
-                ", habilidades=" + habilidades +
-                ", imagen='" + imagen + '\'' +
-                '}';
-    }
+    // Otros métodos
 }

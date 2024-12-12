@@ -1,3 +1,5 @@
+package mx.edu.utez.videojuegorpg.dataStructures;
+
 // Clase cola que implementa Nodos Enlazados
 public class Queue <E> {
 
@@ -17,8 +19,8 @@ public class Queue <E> {
     private Node<E> rear;
     private int size;
 
-    // Metodos de clase
-    //Stack = push | List = add | Cola = offer
+    // Métodos de clase
+    // Stack = push | List = add | Cola = offer
     public boolean offer(E data) {
         Node<E> newNode = new Node<>(data);
         if (rear != null) {
@@ -32,12 +34,12 @@ public class Queue <E> {
         return true;
     }
 
-    //Stack = peek | List = get | Cola = peek
+    // Stack = peek | List = get | Cola = peek
     public E peek() {
         return (front == null) ? null : front.data;
     }
 
-    //Stack = pop | List = remove | Cola = poll
+    // Stack = pop | List = remove | Cola = poll
     public E poll() {
         if (isEmpty()) {
             return null;
@@ -51,14 +53,13 @@ public class Queue <E> {
         return data;
     }
 
-    //isEmpty
+    // isEmpty
     public boolean isEmpty() {
         return size == 0;
     }
 
-    //size
+    // size
     public int size() {
         return size;
     }
-    
 }
