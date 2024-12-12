@@ -97,4 +97,13 @@ public class Personaje {
         }
         return null;
     }
+
+    public Habilidad getHabilidad(String nombre) {
+        for (int i = 0; i < rol.getHabilidades(rol).size(); i++) {
+            if (rol.getHabilidades(rol).get(i).getNombre().equals(nombre)) {
+                return rol.getHabilidades(rol).get(i);
+            }
+        }
+        return null;
+    }
 }
