@@ -25,7 +25,10 @@ public class Enemigo extends Personaje {
         return rol; // Devuelve el rol específico del enemigo
     }
 
-
+    @Override
+    public boolean isEnemigo() {
+        return true; // Identifica que este objeto es un Enemigo
+    }
 
     @Override
     public String toString() {

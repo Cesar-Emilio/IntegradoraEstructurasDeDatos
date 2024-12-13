@@ -25,30 +25,34 @@ public class IniciarBatallaServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try {
-            // Leer y procesar los datos enviados desde el cliente
             ObjectMapper mapper = new ObjectMapper();
             JsonNode body = mapper.readTree(request.getReader());
 
-            // Obtener IDs y la habilidad seleccionada
             String playerId = body.get("playerId").asText();
             String enemyId = body.get("enemyId").asText();
             String abilityId = body.get("abilityId").asText();
 
-            // Obtener el personaje, enemigo y habilidad seleccionada
             Personaje personaje = obtenerPersonajePorId(playerId, request);
             Enemigo enemigo = obtenerEnemigoPorId(enemyId, request);
             Habilidad habilidadSeleccionada = personaje.getHabilidades().get(Integer.parseInt(abilityId));
 
-            // Crear una instancia de Batalla y procesar el ataque
+            if (habilidadSeleccionada.isFueUsada()) {
+                throw new IllegalArgumentException("La habilidad '" + habilidadSeleccionada.getNombre() + "' ya fue utilizada y no puede volver a usarse.");
+            }
+
             Batalla batalla = new Batalla();
             String resultado = batalla.ejecutarBatalla(personaje, enemigo, habilidadSeleccionada);
 
-            // Preparar la respuesta
-            Map<String, String> resultadoJson = new HashMap<>();
+            if (Integer.parseInt(abilityId) == 3) {
+                habilidadSeleccionada.setFueUsada(true);
+            }
+
+            Map<String, Object> resultadoJson = new HashMap<>();
             resultadoJson.put("resultado", resultado);
+            resultadoJson.put("habilidadId", abilityId);
+            resultadoJson.put("habilidadFueUsada", habilidadSeleccionada.isFueUsada());
 
             response.getWriter().write(mapper.writeValueAsString(resultadoJson));
-
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
@@ -58,16 +62,11 @@ public class IniciarBatallaServlet extends HttpServlet {
 
     private Personaje obtenerPersonajePorId(String playerId, HttpServletRequest request) {
         ArrayList<Personaje> personajes = (ArrayList<Personaje>) request.getSession().getAttribute("selectedPlayers");
-        if (personajes == null) {
-            throw new IllegalArgumentException("No se encontraron personajes en la sesión.");
-        }
-
         for (int i = 0; i < personajes.size(); i++) {
             if (("playerCard" + (i + 1)).equals(playerId)) {
                 return personajes.get(i);
             }
         }
-
         throw new IllegalArgumentException("No se encontró un personaje con el ID: " + playerId);
     }
 
@@ -97,5 +96,4 @@ public class IniciarBatallaServlet extends HttpServlet {
 
         throw new IllegalArgumentException("No se encontró un enemigo con el ID: " + enemyId);
     }
-
 }

@@ -126,6 +126,12 @@ body {
     transform: scale(0.95);
 }
 
+.ability-button.used {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
 .move-to-center-player {
     position: absolute;
     top: 30%;

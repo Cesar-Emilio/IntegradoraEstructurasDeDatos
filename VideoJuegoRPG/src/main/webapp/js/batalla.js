@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const abilitySpans = playerCard.querySelectorAll('.ability-data');
 
-        abilitySpans.forEach(span => {
+        abilitySpans.forEach((span, index) => {
             const abilityName = span.getAttribute('data-ability-name');
             const abilityId = span.getAttribute('data-ability-id');
 
@@ -21,18 +21,22 @@ document.addEventListener('DOMContentLoaded', function () {
             abilityButton.classList.add('ability-button');
             abilityButton.setAttribute('data-ability-id', abilityId);
 
+            // Verificar si es la cuarta habilidad y si ya fue usada
+            if (index === 3 && span.getAttribute('data-used') === 'true') {
+                abilityButton.disabled = true; // Deshabilitar solo la cuarta habilidad
+                abilityButton.classList.add('used'); // Opcional: estilo para habilidades usadas
+            }
+
             // Añadir evento para resaltar la habilidad seleccionada
             abilityButton.addEventListener('click', function () {
-                // Eliminar la clase 'selected' de todas las habilidades
-                document.querySelectorAll('.ability-button').forEach(btn => btn.classList.remove('selected'));
+                if (!abilityButton.disabled) {
+                    document.querySelectorAll('.ability-button').forEach(btn => btn.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedAbility = this.getAttribute('data-ability-id');
 
-                // Añadir la clase 'selected' al botón clickeado
-                this.classList.add('selected');
-
-                selectedAbility = this.getAttribute('data-ability-id');
-
-                // Permitir seleccionar un enemigo para atacar
-                selectEnemyForAttack();
+                    // Permitir seleccionar un enemigo para atacar
+                    selectEnemyForAttack();
+                }
             });
 
             abilityContainer.appendChild(abilityButton);
@@ -42,8 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Permitir la selección de un enemigo para el ataque
     function selectEnemyForAttack() {
         enemyCards.forEach(card => {
-            card.removeEventListener('click', enemySelectionHandler); // Quitar listeners previos
-            card.addEventListener('click', enemySelectionHandler); // Añadir nuevo listener
+            card.removeEventListener('click', enemySelectionHandler);
+            card.addEventListener('click', enemySelectionHandler);
         });
     }
 
@@ -63,8 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
         playerCard.classList.add('move-to-center-player');
         enemyCard.classList.add('move-to-center-enemy');
 
-        abilityContainer.innerHTML = ''; // Limpiar habilidades
-
         fetch('IniciarBatallaServlet', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -78,7 +80,20 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 const resultadoDiv = document.getElementById('resultadoCombate');
-                resultadoDiv.innerHTML = `<p>${data.resultado}</p>`;
+                resultadoDiv.innerHTML = `<p>${data.resultado.replaceAll('\n', '<br>')}</p>`;
+
+                // Si la habilidad es la cuarta y fue usada, deshabilitarla
+                if (data.habilidadId === '3' && data.habilidadFueUsada) {
+                    const usedButton = document.querySelector(`.ability-button[data-ability-id="${abilityId}"]`);
+                    if (usedButton) {
+                        usedButton.disabled = true;
+                        usedButton.classList.add('used'); // Opcional: estilo de habilidad usada
+                        const span = document.querySelector(`.ability-data[data-ability-id="${abilityId}"]`);
+                        if (span) {
+                            span.setAttribute('data-used', 'true'); // Actualizar el estado en la interfaz
+                        }
+                    }
+                }
 
                 setTimeout(() => {
                     playerCard.classList.remove('move-to-center-player');
@@ -91,11 +106,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Asignar eventos de selección a las cartas de los jugadores
     playerCards.forEach(card => {
         card.addEventListener('click', function () {
-            playerCards.forEach(c => c.classList.remove('selected-player')); // Quitar selección previa
-            this.classList.add('selected-player'); // Marcar la carta seleccionada
+            playerCards.forEach(c => c.classList.remove('selected-player'));
+            this.classList.add('selected-player');
             selectedPlayer = this;
 
-            showPlayerAbilities(this); // Mostrar habilidades del jugador
+            showPlayerAbilities(this);
         });
     });
 });

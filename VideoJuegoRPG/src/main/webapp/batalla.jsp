@@ -51,7 +51,8 @@
                 <% for (int j = 0; j < p.getHabilidades().size(); j++) { %>
                 <span class="ability-data"
                       data-ability-name="<%= p.getHabilidades().get(j).getNombre() %>"
-                      data-ability-id="<%= j %>"></span>
+                      data-ability-id="<%= j %>"
+                      data-fue-usada="<%= p.getHabilidades().get(j).isFueUsada() %>">></span>
                 <% } %>
             </div>
             <%

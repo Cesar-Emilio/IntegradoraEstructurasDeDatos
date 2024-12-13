@@ -123,6 +123,10 @@ public class Personaje {
         this.imagen = imagen;
     }
 
+    public boolean isEnemigo() {
+        return false; // Por defecto, un objeto Personaje no es un Enemigo
+    }
+
     @Override
     public String toString() {
         return "Personaje{" +
