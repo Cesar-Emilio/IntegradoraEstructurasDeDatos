@@ -20,6 +20,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battle Arena</title>
     <link rel="stylesheet" href="css/batalla.css">
+    <style>
+        .character-slot.selected {
+            border-color: #00ff00;
+            box-shadow: -2px -2px 0 #008f00, 2px 2px 0 #008f00, -2px 2px 0 #008f00, 2px -2px 0 #008f00, inset 0 0 15px rgba(0,255,0,0.3);
+        }
+        .character-slot.selected_enemies {
+            border-color: #ff0404;
+            box-shadow: -2px -2px 0 #f00000, 2px 2px 0 #f00000, -2px 2px 0 #f00000, 2px -2px 0 #f00000, inset 0 0 15px rgba(0,255,0,0.3);
+        }
+    </style>
 </head>
 <body>
 <div class="battle-container">
@@ -34,13 +44,14 @@
                     for (int i = 0; i < personajes.size(); i++) {
                         Personaje p = personajes.get(i);
             %>
-            <div class="card" id="playerCard<%= i + 1 %>" style="background-image: url('<%=request.getContextPath()%>/<%=p.getImagen()%>');">
+            <div class="card character-slot <%= (i == 0) ? "selected" : "" %>"
+                 id="playerCard<%= i + 1 %>"
+                 style="background-image: url('<%=request.getContextPath()%>/<%=p.getImagen()%>');">
                 <%-- Store abilities as data attributes --%>
                 <% for (int j = 0; j < p.getHabilidades().size(); j++) { %>
                 <span class="ability-data"
                       data-ability-name="<%= p.getHabilidades().get(j).getNombre() %>"
-                      data-ability-id="<%= j %>">
-                    </span>
+                      data-ability-id="<%= j %>"></span>
                 <% } %>
             </div>
             <%
@@ -57,8 +68,9 @@
                     for (int i = 0; i < enemigos.size(); i++) {
                         Enemigo enemigo = enemigos.get(i);
             %>
-            <div class="card" id="enemyCard<%= i + 1 %>" style="background-image: url('<%= request.getContextPath() %>/<%= enemigo.getImagen() %>');">
-                <!-- Puedes agregar más información como tooltip si es necesario -->
+            <div class="card character-slot <%= (i == 0) ? "selected_enemies" : "" %>"
+                 id="enemyCard<%= i + 1 %>"
+                 style="background-image: url('<%= request.getContextPath() %>/<%= enemigo.getImagen() %>');">
             </div>
             <%
                 }
@@ -76,6 +88,23 @@
         <!-- Abilities will be dynamically populated here -->
     </div>
 </div>
+
+<script>
+    // Script para manejar la selección dinámica de personajes o enemigos
+    document.querySelectorAll('.card.character-slot').forEach(slot => {
+        slot.addEventListener('click', () => {
+            // Remover la clase `selected` de todos los slots
+            document.querySelectorAll('.card.character-slot').forEach(s => s.classList.remove('selected', 'selected_enemies'));
+
+            // Agregar la clase correspondiente al slot seleccionado
+            if (slot.parentElement.classList.contains('enemy-cards')) {
+                slot.classList.add('selected_enemies');
+            } else {
+                slot.classList.add('selected');
+            }
+        });
+    });
+</script>
 <script src="js/batalla.js"></script>
 </body>
 </html>
