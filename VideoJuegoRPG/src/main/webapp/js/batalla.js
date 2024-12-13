@@ -76,8 +76,9 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify({ playerId, enemyId, abilityId, nivel })
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                if (response.redirected) {
+                    window.location.href = response.url; // Redirige si es el fin del juego
+                    return;
                 }
                 return response.json();
             })

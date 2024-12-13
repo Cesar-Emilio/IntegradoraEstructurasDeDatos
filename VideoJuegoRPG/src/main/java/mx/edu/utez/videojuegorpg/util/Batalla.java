@@ -1,5 +1,6 @@
 package mx.edu.utez.videojuegorpg.util;
 
+import mx.edu.utez.videojuegorpg.dataStructures.ArrayList;
 import mx.edu.utez.videojuegorpg.dataStructures.CircularLinkedList;
 import mx.edu.utez.videojuegorpg.dataStructures.Queue;
 import mx.edu.utez.videojuegorpg.model.Enemigo;
@@ -100,5 +101,14 @@ public class Batalla {
         int index = random.nextInt(habilidades.size());
         return habilidades.get(index);
     }
+    public boolean todosMuertos(ArrayList<? extends Personaje> personajes) {
+        for (int i = 0; i < personajes.size(); i++) {
+            if (personajes.get(i).getSalud() > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }

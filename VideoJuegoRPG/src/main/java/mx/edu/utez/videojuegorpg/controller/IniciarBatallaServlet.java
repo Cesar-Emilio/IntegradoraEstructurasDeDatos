@@ -33,6 +33,9 @@ public class IniciarBatallaServlet extends HttpServlet {
             String abilityId = body.get("abilityId").asText();
             int nivel = body.get("nivel").asInt();
 
+            ArrayList<Personaje> personajes = (ArrayList<Personaje>) request.getSession().getAttribute("selectedPlayers");
+            ArrayList<Enemigo> enemigos = EnemigosConfig.obtenerEnemigos(nivel);
+
             Personaje personaje = obtenerPersonajePorId(playerId, request);
             Enemigo enemigo = obtenerEnemigoPorId(enemyId, nivel);
             Habilidad habilidadSeleccionada = personaje.getHabilidades().get(Integer.parseInt(abilityId));
@@ -43,6 +46,17 @@ public class IniciarBatallaServlet extends HttpServlet {
 
             Batalla batalla = new Batalla();
             String resultado = batalla.ejecutarBatalla(personaje, enemigo, habilidadSeleccionada);
+
+            // Verificar si todos los enemigos están muertos
+            boolean enemigosDerrotados = batalla.todosMuertos(enemigos);
+
+            // Verificar si todos los personajes están muertos
+            boolean personajesDerrotados = batalla.todosMuertos(personajes);
+
+            if (enemigosDerrotados || personajesDerrotados) {
+                response.sendRedirect("fin.jsp?ganador=" + enemigosDerrotados);
+                return;
+            }
 
             Map<String, Object> resultadoJson = new HashMap<>();
             resultadoJson.put("resultado", resultado);
