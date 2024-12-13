@@ -335,16 +335,6 @@ h1, .character-slot p {
 }
 
 
-select {
-    background-color: #333;
-    border: 2px solid #333;
-    color: white;
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 5px;
-    appearance: none;
-    cursor: pointer;
-}
 button {
     background-color: #333;
     color:  #333;
@@ -354,4 +344,69 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+
+.role-select-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.styled-select {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #4a4a4a;
+    color: #ffffff;
+    border: 2px solid #7f7f7f;
+    padding: 5px;
+    font-size: 12px;
+    text-transform: uppercase;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: -2px -2px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, inset 0 0 10px rgba(0,0,0,0.5);
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 0 #000;
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+.styled-select::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px solid #9f9f9f;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.styled-select:hover {
+    background-color: #5a5a5a;
+    box-shadow: -3px -3px 0 #1B5E20, 3px 3px 0 #1B5E20, -3px 3px 0 #1B5E20, 3px -3px 0 #1B5E20;
+}
+
+.styled-select:focus {
+    outline: none;
+    border-color: #00ff00;
+}
+
+/* Custom dropdown arrow */
+.styled-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='%23ffffff'%3E%3Cpath d='M1 4 L6 9 L11 4' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+/* Styling for the dropdown options */
+.styled-select option {
+    background-color: #4a4a4a;
+    color: #ffffff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
 }

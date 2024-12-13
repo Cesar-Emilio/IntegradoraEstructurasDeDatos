@@ -133,18 +133,16 @@ body {
 }
 
 .move-to-center-player {
-    position: absolute;
-    top: 30%;
+    position: fixed;
+    top: 50%;
     left: 40%;
-    transform: translate(-50%, -50%);
     z-index: 10;
 }
 
 .move-to-center-enemy {
-    position: absolute;
-    top: 30%;
+    position: fixed;
+    top: 50%;
     right: 40%;
-    transform: translate(50%, -50%);
     z-index: 10;
 }
 
@@ -161,11 +159,25 @@ body {
     font-size: 18px;
     text-align: center;
     margin-top: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
     padding: 10px;
     border-radius: 5px;
 }
 
 .ability-data {
     display: none;
+}
+
+#vs-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 60px;
+    color: #ff0000;
+    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 9999;
+    pointer-events: none;
 }

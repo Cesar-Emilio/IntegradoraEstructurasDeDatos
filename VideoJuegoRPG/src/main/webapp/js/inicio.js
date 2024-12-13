@@ -178,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         };
                     }
 
+                    //Si el personaje no existe retornamos uno vacio (Esto no ejecutara debido a la validacion del boton deshabilitado)
                     return {
                         name: '',
                         role: '',

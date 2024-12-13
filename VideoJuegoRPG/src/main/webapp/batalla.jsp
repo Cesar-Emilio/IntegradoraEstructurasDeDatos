@@ -62,6 +62,7 @@
         </div>
 
         <div id="resultadoCombate" class="resultado"></div>
+        <div id="vs-container"></div>
 
         <div class="enemy-cards">
             <%
