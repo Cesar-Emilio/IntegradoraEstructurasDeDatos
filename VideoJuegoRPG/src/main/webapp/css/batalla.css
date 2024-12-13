@@ -148,6 +148,14 @@ body {
     z-index: 10;
 }
 
+.enemy-cards.dead {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    border-color: gray;
+    box-shadow: none;
+}
+
 .resultado {
     color: white;
     font-size: 18px;

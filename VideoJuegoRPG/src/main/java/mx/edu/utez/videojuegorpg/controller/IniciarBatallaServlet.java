@@ -31,9 +31,10 @@ public class IniciarBatallaServlet extends HttpServlet {
             String playerId = body.get("playerId").asText();
             String enemyId = body.get("enemyId").asText();
             String abilityId = body.get("abilityId").asText();
+            int nivel = body.get("nivel").asInt();
 
             Personaje personaje = obtenerPersonajePorId(playerId, request);
-            Enemigo enemigo = obtenerEnemigoPorId(enemyId, request);
+            Enemigo enemigo = obtenerEnemigoPorId(enemyId, nivel);
             Habilidad habilidadSeleccionada = personaje.getHabilidades().get(Integer.parseInt(abilityId));
 
             if (habilidadSeleccionada.isFueUsada()) {
@@ -43,14 +44,13 @@ public class IniciarBatallaServlet extends HttpServlet {
             Batalla batalla = new Batalla();
             String resultado = batalla.ejecutarBatalla(personaje, enemigo, habilidadSeleccionada);
 
-            if (Integer.parseInt(abilityId) == 3) {
-                habilidadSeleccionada.setFueUsada(true);
-            }
-
             Map<String, Object> resultadoJson = new HashMap<>();
             resultadoJson.put("resultado", resultado);
             resultadoJson.put("habilidadId", abilityId);
             resultadoJson.put("habilidadFueUsada", habilidadSeleccionada.isFueUsada());
+            resultadoJson.put("enemigoMuerto", enemigo.getSalud() <= 0);
+            resultadoJson.put("personajeMuerto", personaje.getSalud() <= 0);
+            resultadoJson.put("enemyId", enemyId);
 
             response.getWriter().write(mapper.writeValueAsString(resultadoJson));
         } catch (Exception e) {
@@ -70,30 +70,25 @@ public class IniciarBatallaServlet extends HttpServlet {
         throw new IllegalArgumentException("No se encontró un personaje con el ID: " + playerId);
     }
 
-    private Enemigo obtenerEnemigoPorId(String enemyId, HttpServletRequest request) {
-        String nivelParam = request.getParameter("nivel");
-        int nivel;
-
-        // Validar y manejar el nivel por defecto
-        try {
-            nivel = (nivelParam != null && !nivelParam.isEmpty()) ? Integer.parseInt(nivelParam) : 1;
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El parámetro 'nivel' no es válido: " + nivelParam);
-        }
-
-        // Obtener los enemigos para el nivel especificado
+    private Enemigo obtenerEnemigoPorId(String enemyId, int nivel) {
         ArrayList<Enemigo> enemigos = EnemigosConfig.obtenerEnemigos(nivel);
         if (enemigos == null || enemigos.isEmpty()) {
             throw new IllegalArgumentException("No se encontraron enemigos para el nivel: " + nivel);
         }
 
-        // Buscar el enemigo por ID
-        for (int i = 0; i < enemigos.size(); i++) {
-            if (("enemyCard" + (i + 1)).equals(enemyId)) {
-                return enemigos.get(i);
-            }
+        // Obtener el índice desde el ID
+        int enemyIndex;
+        try {
+            enemyIndex = Integer.parseInt(enemyId.replace("enemyCard", "")) - 1;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El ID del enemigo no es válido: " + enemyId);
         }
 
-        throw new IllegalArgumentException("No se encontró un enemigo con el ID: " + enemyId);
+        // Verificar si el índice está dentro del rango de la lista
+        if (enemyIndex >= 0 && enemyIndex < enemigos.size()) {
+            return enemigos.get(enemyIndex);
+        } else {
+            throw new IllegalArgumentException("El índice del enemigo está fuera de rango: " + enemyIndex);
+        }
     }
 }

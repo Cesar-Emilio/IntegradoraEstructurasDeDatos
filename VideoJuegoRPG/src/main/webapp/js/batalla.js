@@ -46,8 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Permitir la selección de un enemigo para el ataque
     function selectEnemyForAttack() {
         enemyCards.forEach(card => {
-            card.removeEventListener('click', enemySelectionHandler);
-            card.addEventListener('click', enemySelectionHandler);
+            if (!card.classList.contains('dead')) { // Solo permitir la selección si el enemigo no está muerto
+                card.removeEventListener('click', enemySelectionHandler);
+                card.addEventListener('click', enemySelectionHandler);
+            }
         });
     }
 
@@ -63,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function iniciarCombate(playerId, enemyId, abilityId) {
         const playerCard = document.getElementById(playerId);
         const enemyCard = document.getElementById(enemyId);
+        const nivel = new URLSearchParams(window.location.search).get('nivel');
 
         playerCard.classList.add('move-to-center-player');
         enemyCard.classList.add('move-to-center-enemy');
@@ -70,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('IniciarBatallaServlet', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ playerId, enemyId, abilityId })
+            body: JSON.stringify({ playerId, enemyId, abilityId, nivel })
         })
             .then(response => {
                 if (!response.ok) {
@@ -82,16 +85,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 const resultadoDiv = document.getElementById('resultadoCombate');
                 resultadoDiv.innerHTML = `<p>${data.resultado.replaceAll('\n', '<br>')}</p>`;
 
-                // Si la habilidad es la cuarta y fue usada, deshabilitarla
+                // Deshabilitar al enemigo si murió
+                if (data.enemigoMuerto) {
+                    enemyCard.classList.add('dead');
+                    enemyCard.style.pointerEvents = 'none';
+                    enemyCard.style.opacity = '0.5';
+                    enemyCard.offsetHeight;
+                }
+
+                // Deshabilitar al personaje si murió
+                if (data.personajeMuerto) {
+                    playerCard.classList.add('dead');
+                    playerCard.style.pointerEvents = 'none';
+                    playerCard.style.opacity = '0.5';
+                    playerCard.offsetHeight;
+                }
+
+                // Si la habilidad fue usada, deshabilitarla
                 if (data.habilidadId === '3' && data.habilidadFueUsada) {
                     const usedButton = document.querySelector(`.ability-button[data-ability-id="${abilityId}"]`);
                     if (usedButton) {
                         usedButton.disabled = true;
                         usedButton.classList.add('used'); // Opcional: estilo de habilidad usada
-                        const span = document.querySelector(`.ability-data[data-ability-id="${abilityId}"]`);
-                        if (span) {
-                            span.setAttribute('data-used', 'true'); // Actualizar el estado en la interfaz
-                        }
                     }
                 }
 

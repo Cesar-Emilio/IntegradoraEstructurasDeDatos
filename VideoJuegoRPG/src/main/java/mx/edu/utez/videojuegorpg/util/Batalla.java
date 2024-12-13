@@ -66,23 +66,29 @@ public class Batalla {
         }
 
         int dañoBase = habilidad.getDaño();
+        int daño;
+
         if (defensor instanceof Enemigo) {
             Enemigo enemigo = (Enemigo) defensor;
-            int daño = (dañoBase * 10) / (5 + enemigo.getDefensa());
+            daño = (dañoBase * 10) / (5 + enemigo.getDefensa());
             enemigo.setSalud(enemigo.getSalud() - daño);
         } else if (defensor instanceof Personaje) {
             Personaje personaje = (Personaje) defensor;
-            int daño = (dañoBase * 10) / (5 + personaje.getDefensa());
+            daño = (dañoBase * 10) / (personaje.getDefensa()/3);
             personaje.setSalud(personaje.getSalud() - daño);
+        } else {
+            throw new IllegalArgumentException("Tipo de defensor desconocido.");
         }
 
         // Marcar la habilidad como usada si es la cuarta
-        if ("Ráfaga de Espadas".equals(habilidad.getNombre()) || "Explosión Final".equals(habilidad.getNombre()) || "Lluvia de Flechas".equals(habilidad.getNombre())) {
+        if ("Ráfaga de Espadas".equals(habilidad.getNombre()) ||
+                "Explosión Final".equals(habilidad.getNombre()) ||
+                "Lluvia de Flechas".equals(habilidad.getNombre())) {
             habilidad.setFueUsada(true);
         }
-        return dañoBase;
-    }
 
+        return daño; // Devolver el daño real infligido
+    }
 
     private Habilidad seleccionarHabilidadAleatoria(Enemigo enemigo) {
         CircularLinkedList<Habilidad> habilidades = enemigo.getHabilidades();
