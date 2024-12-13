@@ -60,7 +60,14 @@ public class Personaje {
     }
 
     public CircularLinkedList<Habilidad> getHabilidades() {
-        return rol.getHabilidades(rol);
+        if (rol != null) {
+            return rol.getHabilidades(rol); // Si tiene rol, devuelve habilidades del rol
+        }
+        if (this instanceof Enemigo) {
+            Enemigo enemigo = (Enemigo) this;
+            return CircularLinkedList.of(enemigo.getRolEnemigo().getHabilidades()); // Si es enemigo, usa su rol específico
+        }
+        return new CircularLinkedList<>(); // Si no tiene rol, devuelve lista vacía
     }
 
     public void setHabilidades(CircularLinkedList<Habilidad> habilidades) {
@@ -78,6 +85,7 @@ public class Personaje {
     public Rol getRol() {
         return rol;
     }
+
 
     public void setRol(Rol rol) {
         this.rol = rol;

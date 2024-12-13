@@ -15,13 +15,23 @@ document.addEventListener('DOMContentLoaded', function () {
             const abilityName = span.getAttribute('data-ability-name');
             const abilityId = span.getAttribute('data-ability-id');
 
+            // Crear el botón para la habilidad
             const abilityButton = document.createElement('button');
             abilityButton.textContent = abilityName;
             abilityButton.classList.add('ability-button');
             abilityButton.setAttribute('data-ability-id', abilityId);
 
+            // Añadir evento para resaltar la habilidad seleccionada
             abilityButton.addEventListener('click', function () {
+                // Eliminar la clase 'selected' de todas las habilidades
+                document.querySelectorAll('.ability-button').forEach(btn => btn.classList.remove('selected'));
+
+                // Añadir la clase 'selected' al botón clickeado
+                this.classList.add('selected');
+
                 selectedAbility = this.getAttribute('data-ability-id');
+
+                // Permitir seleccionar un enemigo para atacar
                 selectEnemyForAttack();
             });
 
@@ -81,8 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Asignar eventos de selección a las cartas de los jugadores
     playerCards.forEach(card => {
         card.addEventListener('click', function () {
-            playerCards.forEach(c => c.classList.remove('selected-player'));
-            this.classList.add('selected-player');
+            playerCards.forEach(c => c.classList.remove('selected-player')); // Quitar selección previa
+            this.classList.add('selected-player'); // Marcar la carta seleccionada
             selectedPlayer = this;
 
             showPlayerAbilities(this); // Mostrar habilidades del jugador
