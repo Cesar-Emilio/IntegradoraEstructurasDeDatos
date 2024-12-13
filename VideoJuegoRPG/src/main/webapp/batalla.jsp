@@ -34,7 +34,15 @@
                     for (int i = 0; i < personajes.size(); i++) {
                         Personaje p = personajes.get(i);
             %>
-            <div class="card" id="playerCard<%= i + 1 %>" style="background-image: url('<%=request.getContextPath()%>/<%=p.getImagen()%>');"></div>
+            <div class="card" id="playerCard<%= i + 1 %>" style="background-image: url('<%=request.getContextPath()%>/<%=p.getImagen()%>');">
+                <%-- Store abilities as data attributes --%>
+                <% for (int j = 0; j < p.getHabilidades().size(); j++) { %>
+                <span class="ability-data"
+                      data-ability-name="<%= p.getHabilidades().get(j).getNombre() %>"
+                      data-ability-id="<%= j %>">
+                    </span>
+                <% } %>
+            </div>
             <%
                     }
                 }
@@ -61,8 +69,11 @@
                 }
             %>
         </div>
+    </div>
 
-
+    <!-- New ability selection container -->
+    <div id="abilityContainer" class="ability-container">
+        <!-- Abilities will be dynamically populated here -->
     </div>
 </div>
 <script src="js/batalla.js"></script>
