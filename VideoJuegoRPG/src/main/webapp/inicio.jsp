@@ -28,6 +28,14 @@
         </div>
         <button id="select-character-btn">Agregar Personaje</button>
     </div>
+    <div>
+        <select>
+            <option value="warrior">Warrior</option>
+            <option value="mage">Mage</option>
+            <option value="archer">Archer</option>
+        </select>
+        <button>Select Role</button>
+    </div>
 </div>
 
 <script src="js/inicio.js"></script>

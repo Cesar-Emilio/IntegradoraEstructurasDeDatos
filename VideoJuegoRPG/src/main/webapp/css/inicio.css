@@ -333,3 +333,25 @@ h1, .character-slot p {
     font-size: 10px;
     color: #ffffff;
 }
+
+
+select {
+    background-color: #333;
+    border: 2px solid #333;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    appearance: none;
+    cursor: pointer;
+}
+button {
+    background-color: #333;
+    color:  #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
