@@ -23,6 +23,5 @@ public class ResultadoServlet extends HttpServlet {
             request.setAttribute("mensaje", "Has perdido en el nivel " + nivelActual + ". ¡Inténtalo de nuevo!");
         }
 
-        request.getRequestDispatcher("resultado.jsp").forward(request, response);
     }
 }

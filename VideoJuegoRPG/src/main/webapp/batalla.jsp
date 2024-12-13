@@ -1,8 +1,18 @@
+<%@ page import="mx.edu.utez.videojuegorpg.model.Personaje" %>
+<%@ page import="mx.edu.utez.videojuegorpg.dataStructures.ArrayList" %>
+<%@ page import="java.io.File" %>
+<%@ page import="mx.edu.utez.videojuegorpg.model.Enemigo" %>
+<%@ page import="mx.edu.utez.videojuegorpg.model.EnemigosConfig" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    // Obtener el número de nivel desde la solicitud
-    String nivel = request.getParameter("nivel");
+    // Obtener el nivel desde el parámetro
+    String nivelParam = request.getParameter("nivel");
+    int nivel = (nivelParam != null) ? Integer.parseInt(nivelParam) : 1;
+
+    // Obtener los enemigos del nivel actual
+    ArrayList<Enemigo> enemigos = EnemigosConfig.obtenerEnemigos(nivel);
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,24 +28,41 @@
 
     <div class="battle-arena">
         <div class="player-cards">
-            <!-- Cartas aliadas -->
-            <div class="card" id="playerCard1"></div>
-            <div class="card" id="playerCard2"></div>
-            <div class="card" id="playerCard3"></div>
-            <div class="card" id="playerCard4"></div>
-            <div class="card" id="playerCard5"></div>
+            <%
+                ArrayList<Personaje> personajes = (ArrayList<Personaje>) session.getAttribute("selectedPlayers");
+                if (personajes != null && personajes.size() > 0) {
+                    for (int i = 0; i < personajes.size(); i++) {
+                        Personaje p = personajes.get(i);
+            %>
+            <div class="card" id="playerCard<%= i + 1 %>" style="background-image: url('<%=request.getContextPath()%>/<%=p.getImagen()%>');"></div>
+            <%
+                    }
+                }
+            %>
         </div>
 
-        <div class="versus" id="versusText">VS</div>
+        <div id="resultadoCombate" class="resultado"></div>
 
         <div class="enemy-cards">
-            <!-- Cartas enemigas -->
-            <div class="card" id="enemyCard1"></div>
-            <div class="card" id="enemyCard2"></div>
-            <div class="card" id="enemyCard3"></div>
-            <div class="card" id="enemyCard4"></div>
-            <div class="card" id="enemyCard5"></div>
+            <%
+                if (enemigos != null && enemigos.size() > 0) {
+                    for (int i = 0; i < enemigos.size(); i++) {
+                        Enemigo enemigo = enemigos.get(i);
+            %>
+            <div class="card" id="enemyCard<%= i + 1 %>" style="background-image: url('<%= request.getContextPath() %>/<%= enemigo.getImagen() %>');">
+                <!-- Puedes agregar más información como tooltip si es necesario -->
+            </div>
+            <%
+                }
+            } else {
+            %>
+            <p>No se encontraron enemigos para este nivel.</p>
+            <%
+                }
+            %>
         </div>
+
+
     </div>
 </div>
 <script src="js/batalla.js"></script>

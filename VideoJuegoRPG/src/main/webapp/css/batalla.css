@@ -13,12 +13,10 @@ body {
     overflow: hidden;
 }
 
-
-
 .battle-container {
     width: 90%;
     height: 80vh;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     border: 4px solid #7f7f7f;
     display: flex;
     flex-direction: column;
@@ -39,21 +37,17 @@ body {
 }
 
 .battle-arena {
+    position: relative;
+    height: 70vh; /* Asegura suficiente espacio vertical */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    position: relative;
-    margin-bottom: 30px;
 }
 
-.player-cards, .enemy-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.card {
+.player-cards .card {
+    position: absolute;
+    top: calc(50% - 60px); /* Centra las tarjetas verticalmente al inicio */
+    left: 5%; /* Inicia en el lado izquierdo */
     width: 70px;
     height: 120px;
     background-color: #4a4a4a;
@@ -62,6 +56,38 @@ body {
     background-position: center;
     cursor: pointer;
     box-shadow: -2px -2px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000;
+    transition: all 0.8s ease; /* Suavidad para las transiciones */
+}
+
+.enemy-cards .card {
+    position: absolute;
+    top: calc(50% - 60px); /* Centra las tarjetas verticalmente al inicio */
+    right: 5%; /* Inicia en el lado derecho */
+    width: 70px;
+    height: 120px;
+    background-color: #4a4a4a;
+    border: 4px solid #7f7f7f;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    box-shadow: -2px -2px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000;
+    transition: all 0.8s ease; /* Suavidad para las transiciones */
+}
+
+.card.move-to-center-player {
+    position: absolute;
+    top: 30%; /* Posición final del jugador arriba del centro */
+    left: 40%; /* Ligeramente a la izquierda del centro */
+    transform: translate(-50%, -50%);
+    transition: all 0.8s ease; /* Suavidad en la transición */
+}
+
+.card.move-to-center-enemy {
+    position: absolute;
+    top: 30%; /* Posición final del enemigo arriba del centro */
+    right: 40%; /* Ligeramente a la derecha del centro */
+    transform: translate(50%, -50%);
+    transition: all 0.8s ease; /* Suavidad en la transición */
 }
 
 .versus {
@@ -74,17 +100,19 @@ body {
     text-shadow: 2px 2px 0 #000;
     opacity: 0;
     transition: opacity 0.5s ease;
-    z-index: 1  ;
+    z-index: 1;
 }
 
 .versus.show {
     opacity: 1;
 }
 
-.card.move-to-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 1s ease;
+.resultado {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
 }

@@ -50,11 +50,6 @@ public class InicioServlet extends HttpServlet {
             personajes.add(new Personaje(name, convertirStringARol(role), defense, speed, salud, image));
         });
 
-        for (int i = 0; i < personajes.size(); i++) {
-            System.out.println(personajes.get(i).toString());
-
-        }
-
         request.getSession().setAttribute("selectedPlayers", personajes);
 
         response.setContentType("application/json");

@@ -1,45 +1,65 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const playerCards = document.querySelectorAll('.player-cards .card');
+document.addEventListener('DOMContentLoaded', function () {
     const enemyCards = document.querySelectorAll('.enemy-cards .card');
-    const versusText = document.getElementById('versusText');
+    const playerCards = document.querySelectorAll('.player-cards .card');
 
-    function initializeCards(data) {
-        data.playerCards.forEach((card, index) => {
-            playerCards[index].style.backgroundImage = `url(${card.imageSrc})`;
-            playerCards[index].dataset.hp = card.hp;
-            playerCards[index].dataset.attack = card.attack;
-        });
-
-        data.enemyCards.forEach((card, index) => {
-            enemyCards[index].style.backgroundImage = `url(${card.imageSrc})`;
-            enemyCards[index].dataset.hp = card.hp;
-            enemyCards[index].dataset.attack = card.attack;
+    // Inicializar las tarjetas de los personajes con solo las imágenes
+    function initializePlayerCards() {
+        playerCards.forEach(card => {
+            const image = card.dataset.image; // Leer el atributo data-image
+            if (image) {
+                card.style.backgroundImage = `url(${image})`;
+                card.style.backgroundSize = 'cover'; // Asegura que la imagen cubra toda la tarjeta
+                card.style.backgroundPosition = 'center'; // Centra la imagen en la tarjeta
+            } else {
+                console.warn(`La tarjeta con id ${card.id} no tiene una imagen definida.`);
+            }
         });
     }
 
-    function handleCardAttack(playerCard, enemyCard) {
-        playerCard.classList.add('move-to-center');
-        enemyCard.classList.add('move-to-center');
-        versusText.classList.add('show');
+    // Función para iniciar el combate
+    function iniciarCombate(playerId) {
+        const enemyIndex = Math.floor(Math.random() * enemyCards.length);
+        const enemyId = enemyCards[enemyIndex].id;
 
-        setTimeout(() => {
-            playerCard.classList.remove('move-to-center');
-            enemyCard.classList.remove('move-to-center');
-            versusText.classList.remove('show');
-        }, 2000);
+        // Mover las tarjetas hacia arriba del centro
+        const playerCard = document.getElementById(playerId);
+        const enemyCard = document.getElementById(enemyId);
+
+        playerCard.classList.add('move-to-center-player');
+        enemyCard.classList.add('move-to-center-enemy');
+
+        fetch(`IniciarBatallaServlet`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ playerId, enemyId })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Resultado del combate:', data);
+                const resultadoDiv = document.getElementById('resultadoCombate');
+                resultadoDiv.innerHTML = `<p>${data.resultado}</p>`;
+
+                // Remover clases después de un tiempo para resetear las tarjetas
+                setTimeout(() => {
+                    playerCard.classList.remove('move-to-center-player');
+                    enemyCard.classList.remove('move-to-center-enemy');
+                }, 2000);
+            })
+            .catch(error => console.error('Error al iniciar el combate:', error));
     }
 
+    // Añadir eventos de clic a las tarjetas de los jugadores
     playerCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const enemyCard = enemyCards[Math.floor(Math.random() * enemyCards.length)];
-            handleCardAttack(card, enemyCard);
+        card.addEventListener('click', function () {
+            iniciarCombate(this.id);
         });
     });
-    fetch('/IniciarBatallaServlet')
-        .then(response => response.json())
-        .then(data => {
-            console.log('Datos recibidos:', data);
-            initializeCards(data);
-        })
-        .catch(error => console.error('Error:', error));
+
+    // Inicializar las tarjetas al cargar la página
+    initializePlayerCards();
 });

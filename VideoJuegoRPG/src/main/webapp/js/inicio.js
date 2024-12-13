@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startGameBtn.addEventListener('click', () => {
         if (!startGameBtn.disabled) {
-            /*const selectedCharactersArray = Array.from(document.querySelectorAll('.character-slot.selected'))
+            const selectedCharactersArray = Array.from(document.querySelectorAll('.character-slot.selected'))
                 .map(slot => {
                     const characterId = parseInt(selectedCharacters[slot.dataset.slot]); // Obtener el ID correcto del personaje seleccionado
                     const character = characters.find(c => c.id === characterId); // Encontrar el personaje por su ID
@@ -198,11 +198,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.json())
                 .then(data => {
                     console.log('Respuesta del servidor:', data);
-                    window.location.href = 'batalla.jsp';
+                    window.location.href = 'niveles.jsp';
                 })
                 .catch(error => console.error('Error:', error));
-                */
-            window.location.href = 'batalla.jsp?nivel=1';
         }
     });
 });

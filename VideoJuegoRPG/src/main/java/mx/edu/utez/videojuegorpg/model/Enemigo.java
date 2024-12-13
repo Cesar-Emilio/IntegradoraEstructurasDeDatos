@@ -19,6 +19,19 @@ public class Enemigo extends Personaje {
         this.rol = rol;
     }
 
+    @Override
+    public String toString() {
+        return "Enemigo{" +
+                "nombre='" + nombre + '\'' +
+                ", rol=" + rol +
+                ", defensa=" + defensa +
+                ", velocidad=" + velocidad +
+                ", salud=" + salud +
+                ", habilidades=" + habilidades +
+                ", imagen='" + imagen + '\'' +
+                '}';
+    }
+
     public TipoEnemigo getCategoria() {
         return rol.getCategoria(); // Obtenemos la categoría desde el Rol
     }

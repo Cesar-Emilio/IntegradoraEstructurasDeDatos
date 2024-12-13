@@ -115,5 +115,18 @@ public class Personaje {
         this.imagen = imagen;
     }
 
+    @Override
+    public String toString() {
+        return "Personaje{" +
+                "nombre='" + nombre + '\'' +
+                ", rol=" + rol +
+                ", defensa=" + defensa +
+                ", velocidad=" + velocidad +
+                ", salud=" + salud +
+                ", habilidades=" + habilidades +
+                ", imagen='" + imagen + '\'' +
+                '}';
+    }
+
     // Otros métodos
 }
